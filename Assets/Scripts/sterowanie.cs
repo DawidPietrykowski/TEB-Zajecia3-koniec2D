@@ -19,6 +19,8 @@ public class sterowanie : MonoBehaviour
     
     // Aktualny obiekt na scenie zawierający poziom
     public GameObject aktualnyPoziom;
+
+    public LayerMask maskaWykrywaniaPodloza;
     
     void Update()
     {
@@ -28,8 +30,14 @@ public class sterowanie : MonoBehaviour
         // Dodajemy sile o tej wielkosci pomnożonej przez prędkość
         GetComponent<Rigidbody2D>().AddForce(new Vector2(zmianaX * predkosc, 0));
 
+        bool czyJestNaZiemi = Physics2D.BoxCast(
+            new Vector2(transform.position.x, transform.position.y) + Vector2.down * 0.5f,
+            new Vector2(0.1f, 0.1f), 0, Vector2.down, 0.1f, maskaWykrywaniaPodloza);
+        
+        Debug.Log("Czy jest na ziemi: " + czyJestNaZiemi);
+        
         // Jeśli kliknięta spacja to dodajemy siłe w górę - skok
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && czyJestNaZiemi == true)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, silaSkoku));
             GetComponent<Animator>().SetBool("isOnGround", false);
