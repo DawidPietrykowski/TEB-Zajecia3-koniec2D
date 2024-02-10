@@ -21,6 +21,10 @@ public class sterowanie : MonoBehaviour
     public GameObject aktualnyPoziom;
 
     public LayerMask maskaWykrywaniaPodloza;
+
+    public AudioSource dzwiekPrzegranej;
+
+    public AudioSource dzwiekZebranegoPunktu;
     
     void Update()
     {
@@ -62,6 +66,9 @@ public class sterowanie : MonoBehaviour
             
             // Resetujemy wynik
             wynik = 0;
+            
+            // Puszczamy dźwięk przegranej
+            dzwiekPrzegranej.Play();
         }
 
         float predkoscX = GetComponent<Rigidbody2D>().velocity.x;
@@ -87,6 +94,9 @@ public class sterowanie : MonoBehaviour
         
         // Wypisujemy nowy wynik
         Debug.Log("Nowy wynik: " + wynik);
+        
+        // W momencie zebrania punktu puszczamy dźwięk
+        dzwiekZebranegoPunktu.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
