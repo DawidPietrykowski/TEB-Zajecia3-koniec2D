@@ -75,7 +75,7 @@ public class sterowanie : MonoBehaviour
         // Usuwamy obiekt punktu
         Destroy(other.gameObject);
         
-        wynik = wynik + 1;
+        wynik = wynik + 10;
         
         // Wypisujemy nowy wynik
         Debug.Log("Nowy wynik: " + wynik);
